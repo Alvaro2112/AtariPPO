@@ -151,6 +151,8 @@ def main():
     alpha = 1
     alpha_decrease = 1 / max_episodes
     ep_reward = 0
+    last_x = max_episodes / 10 #Number of last episodes where the average reward has to be larger than max_reward
+
 
     #Initialize Memory and Agent
     replay_memory = Replay()
@@ -198,11 +200,11 @@ def main():
         avgerage_steps += j / 20
         ep_reward = 0
 
-        reward_average_last_100 = np.array(rewards)
-        reward_average_last_100 = reward_average_last_100[-100:]
+        reward_average_last_x = np.array(rewards)
+        reward_average_last_x = reward_average_last_x[-last_x:]
 
-        #Check if mean of last 100 episodes is larger than required reward
-        if np.sum(reward_average_last_100) / 100 >= (max_reward):
+        #Check if mean of last last_x episodes is larger than required reward
+        if np.sum(reward_average_last_x) / last_x >= (max_reward):
             avgerage_steps = (avgerage_steps * 20) / ((i+1) % 20)
             mean_reward = (mean_reward * 20) / ((i+1) % 20)
             print('Episode number: {} \t average length: {} \t average reward: {}'.format( (i+1), int(avgerage_steps), int(mean_reward)))
