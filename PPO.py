@@ -201,7 +201,7 @@ def main():
         ep_reward = 0
 
         reward_average_last_x = np.array(rewards)
-        reward_average_last_x = reward_average_last_x[-last_x:]
+        reward_average_last_x = reward_average_last_x[-int(last_x):]
 
         #Check if mean of last last_x episodes is larger than required reward
         if np.sum(reward_average_last_x) / last_x >= (max_reward):
